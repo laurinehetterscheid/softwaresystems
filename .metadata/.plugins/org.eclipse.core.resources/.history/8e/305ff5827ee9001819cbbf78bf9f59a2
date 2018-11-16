@@ -1,0 +1,38 @@
+package ss.week1.hotel;
+
+/**
+ * Hotel guest with name and possibly a room.
+ * @author Laurine Hetterscheid
+ */
+public class Guest {
+    // ------------------ Instance variables ----------------
+	private String name;
+	
+    // ------------------ Constructor ------------------------
+    /**
+     * Creates a <code>Guest</code> with the given name, without a room.
+     * @param guestName name of the new <code>Guest</code>
+     */
+
+	public Guest(String guestName) {
+		name = guestName;
+	}
+	
+	
+	public String getName () {
+		return name;
+	}
+	
+	public int getRoom () {
+		return 0;
+	}
+	
+	public boolean checkin (Room no) {
+		return false;
+	}
+	
+	public boolean checkout () {
+		return false;
+	}
+	
+}

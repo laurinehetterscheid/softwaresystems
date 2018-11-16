@@ -1,0 +1,35 @@
+package ss.week1;
+
+public class Employee {
+	private int hours = 50;
+	private double rate = 100;
+	private double overtimerate = 1.5 * rate;
+	
+	
+	public double pay () {
+		double pay;
+		double overtimepay = 0;
+		double standardpay;
+		
+		if (hours > 40) {
+			overtimepay = overtimerate * (hours - 40);	
+		}
+		if (hours > 40) {
+			standardpay = 40 * rate;
+		}
+		else {
+			standardpay = hours * rate;
+		}
+		
+		pay = overtimepay + standardpay;
+		return pay;
+	}
+	
+	
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
