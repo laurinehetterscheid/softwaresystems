@@ -7,6 +7,7 @@ package ss.week1.hotel;
 public class Guest {
     // ------------------ Instance variables ----------------
 	private String name;
+	private Room room;
 	
     // ------------------ Constructor ------------------------
     /**
@@ -32,22 +33,36 @@ public class Guest {
 	/**
      * Returns the current room where this <code>Guest</code> is staying.
      * @return the room of this <code>Guest</code>;
-     *         <code>0</code> if this <code>Guest</code> 
+     *         <code>null</code> if this <code>Guest</code> 
      *         is not currently in a room.
      */
-	public int getRoom () {
-		return 0;
+	public Room getRoom () {
+		return room;
 	}
 	
 	/**
      * Rents a room to this <code>Guest</code>.
-     * @param no roomnumber to be rented to this <code>Guest</code>; 
+     * @param room room number to be rented to this <code>Guest</code>; 
      * @return true if <code>Room</code> is rented to this <code>Guest</code>;
      *         <code>false</code> if this <code>Guest</code> 
      *         already had a room or <code>Room</code> already had a Guest.
      */
-	public boolean checkin (Room no) {
-		return false;		
+	public boolean checkin (Room room) {
+		if (this.getRoom() == null) {
+				if (room.getGuest() == null) {
+					room.setGuest(this);
+					System.out.println("Guest checked in");
+					return true;
+				}
+				else {
+					System.out.println("Ohter guest in room");
+					return false;
+				}
+		}
+		else {
+			System.out.println("Guest already in a room, room number:" + this.getRoom());
+			return false;
+		}
 	}
 	
 	/**
@@ -57,7 +72,28 @@ public class Guest {
      *         is not currently in a room.
      */
 	public boolean checkout () {
-		return false;
+		if (this.getRoom() != null) {
+			if (this.getRoom().getGuest() == this) {
+				this.getRoom().setGuest(null);;
+				System.out.println("Guest checked out");
+				return true;
+			}
+			else {
+				System.out.println("No guest in room");
+				return false;
+			}
+		}
+		else {
+			System.out.println("Guest does not have a room");
+			return false;
+		}
 	}
+	
+	public String toString() {
+		return null;
+		
+	}
+		
+	
 	
 }
