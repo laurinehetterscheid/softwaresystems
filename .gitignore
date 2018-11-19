@@ -1,2 +1,4 @@
 /softwaresystems/bin
 .DS_Store
+/.metadata/
+/.recommenders/
