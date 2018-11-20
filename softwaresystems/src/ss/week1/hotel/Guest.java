@@ -51,11 +51,12 @@ public class Guest {
 		if (this.getRoom() == null) {
 				if (room.getGuest() == null) {
 					room.setGuest(this);
+					this.room = room;
 					System.out.println("Guest checked in");
 					return true;
 				}
 				else {
-					System.out.println("Ohter guest in room");
+					System.out.println("Other guest in room");
 					return false;
 				}
 		}
@@ -74,7 +75,8 @@ public class Guest {
 	public boolean checkout () {
 		if (this.getRoom() != null) {
 			if (this.getRoom().getGuest() == this) {
-				this.getRoom().setGuest(null);;
+				this.getRoom().setGuest(null);
+				this.room = null;
 				System.out.println("Guest checked out");
 				return true;
 			}

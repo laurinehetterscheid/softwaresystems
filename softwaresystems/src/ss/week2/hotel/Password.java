@@ -1,4 +1,4 @@
-package ss.week1;
+package ss.week2.hotel;
 
 public class Password {
 	private String pass;

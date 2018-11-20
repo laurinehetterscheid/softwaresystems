@@ -22,7 +22,7 @@ public class Rectangle {
     /**
      * The length of this Rectangle.
      * @param length length of the <code>Rectangle</code>;
-     * @ ensures \result > 0;
+     * @ensures \result > 0;
      */
     /*@ pure */ public int length() {
     	return length;
@@ -31,7 +31,7 @@ public class Rectangle {
     /**
      * The width of this Rectangle.
      * @param width width of the <code>Rectangle</code>;
-     * @ ensures \result > 0;
+     * @ensures \result > 0;
      */
     /*@ pure */ public int width() {
     	return width;
@@ -39,7 +39,7 @@ public class Rectangle {
 
     /**
      * The area of this Rectangle.
-     * @ ensures \result > 0;
+     * @ensures \result > 0;
      */
     /*@ pure */ public int area() {
     	int area = length * width;
@@ -48,7 +48,7 @@ public class Rectangle {
 
     /**
      * The perimeter of this Rectangle.
-     * @ ensures \result > 0;
+     * @ensures \result > 0;
      */
     /*@ pure */ public int perimeter() {
     	int perimeter = 2 * (length + width);
