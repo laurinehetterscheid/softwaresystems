@@ -16,7 +16,7 @@ public class RoomTest {
     @Before
     public void setUp() {
         guest = new Guest("Jip");
-        // TODO: initialise the variable room
+        room = new Room(101);
     }
 
     @Test
