@@ -26,7 +26,6 @@ public class Safe {
 	//------------Commands (Modifiers) --------------
 	
 	public void activate (String text) {
-		currentPassword.setWord(Password.INITIAL, text);
 		// receives a String with a password text and activates the safe if the password is correct.
 		if (currentPassword.testWord(text)) {
 			active = true;

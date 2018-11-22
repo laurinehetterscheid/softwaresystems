@@ -3,6 +3,8 @@ package ss.week2.hotel;
 public class Hotel {
 	private Room room1;
 	private Room room2;
+	private Guest guest1;
+	private Guest guest2;
 	private Password hotelPass;
 	private String name;
 	
@@ -20,15 +22,15 @@ public class Hotel {
 		// Receives the password for checking in and the name of the guest. 
 		// Returns a Room object with a (new) Guest of the given name checked in; 
 		// or null if either the password is wrong, there is already a guest with this name, or the hotel is full.
-		
-		hotelPass.setWord(Password.INITIAL, pass);
-		
+				
 		if(isFree(pass, room1)) {
-			room1.setGuest(new Guest(guestName));
+			guest1 = new Guest(guestName);
+			guest1.checkin(room1);
 			return room1;
 		}
 		else if(isFree(pass, room2)) {
-			room2.setGuest(new Guest(guestName));
+			guest2 = new Guest(guestName);
+			guest2.checkin(room2);
 			return room2;
 		}
 		else {
@@ -102,7 +104,7 @@ public class Hotel {
 		
 		// Checks if room is free and password is correct.
 		
-		if(room.getSafe().getPassword().testWord(pass) 
+		if(hotelPass.testWord(pass) 
 				&& room.getGuest() == null) {
 			return true;			
 		}

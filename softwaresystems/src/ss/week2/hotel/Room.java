@@ -65,7 +65,6 @@ public class Room {
      *        is empty afterwards
      */
     public void setGuest(Guest g) {
-    	guest = g;
-    	guest.checkin(this);
+    	this.guest = g;
     }
 }
