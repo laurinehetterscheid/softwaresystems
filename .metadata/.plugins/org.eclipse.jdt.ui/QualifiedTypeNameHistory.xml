@@ -2,4 +2,6 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="ss.week1.DollarsAndCentsCounter"/>
 <fullyQualifiedTypeName name="ss.week1.hotel.Guest"/>
+<fullyQualifiedTypeName name="ss.week2.TrafficSignal.brightnessLevel"/>
+<fullyQualifiedTypeName name="ss.week2.TrafficSignal.signalLight"/>
 </qualifiedTypeNameHistroy>
