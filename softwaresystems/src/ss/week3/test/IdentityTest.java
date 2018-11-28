@@ -3,8 +3,7 @@ package ss.week3.test;
 import org.junit.Before;
 import org.junit.Test;
 
-import ss.week3.math.Constant;
-import ss.week3.math.Identity;
+import ss.week3.math.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
