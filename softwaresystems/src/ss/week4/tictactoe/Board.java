@@ -29,10 +29,10 @@ public class Board {
      */
     //@ ensures (\forall int i; 0 <= i & i < DIM * DIM; this.getField(i) == Mark.EMPTY); 
     public Board() {
-    	this.fields = new Mark[DIM * DIM];
+    	fields = new Mark[DIM * DIM];
     	
     	for (int i = 0; i < DIM * DIM; i++) {
-    		this.fields[i] = Mark.EMPTY;
+    		fields[i] = Mark.EMPTY;
     	}
     }
 
@@ -154,10 +154,13 @@ public class Board {
     //@ ensures \result == (\forall int i; i <= 0 & i < DIM * DIM; this.getField(i) != Mark.EMPTY);
     /*@pure*/
     public boolean isFull() {
-    	for (int i = 0; 0 <= i & i < DIM * DIM;) {
-    		return (fields[i] != Mark.EMPTY);
+    	for (int i = 0; i <= (DIM * DIM - 1); i++) {
+    		
+    		if (this.isEmptyField(i)) {
+    			return false;
+    		}
     	}
-		return false;    	
+    	return false;
     }
 
     /**
