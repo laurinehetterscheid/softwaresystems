@@ -1,8 +1,8 @@
 package ss.week3.test;
 
 import org.junit.Test;
-import ss.week3.pw.BasicChecker;
-import ss.week3.pw.TimedPassword;
+import ss.week3.pw.*;
+
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

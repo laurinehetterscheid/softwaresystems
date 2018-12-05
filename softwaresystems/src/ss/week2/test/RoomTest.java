@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import ss.week2.hotel.Guest;
 import ss.week2.hotel.Room;
-import ss.week2.hotel.Safe;
 
 public class RoomTest {
     private Guest guest;

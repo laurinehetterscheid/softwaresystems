@@ -1,6 +1,5 @@
 package ss.week2.test;
 
-import ss.week2.TrafficSignal;
 import ss.week2.Intersection;
 
 public class IntersectionTest {

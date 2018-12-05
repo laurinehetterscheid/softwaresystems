@@ -4,4 +4,9 @@
 <fullyQualifiedTypeName name="ss.week1.hotel.Guest"/>
 <fullyQualifiedTypeName name="ss.week2.TrafficSignal.brightnessLevel"/>
 <fullyQualifiedTypeName name="ss.week2.TrafficSignal.signalLight"/>
+<fullyQualifiedTypeName name="java.nio.charset.Charset"/>
+<fullyQualifiedTypeName name="week3.pw.BasicChecker"/>
+<fullyQualifiedTypeName name="ss.week3.math.Constant"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="ss.week3.bill.Bill.Item"/>
 </qualifiedTypeNameHistroy>
