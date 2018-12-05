@@ -1,22 +1,31 @@
 package ss.week3.pw;
 
 public class TimedPassword extends Password{
-	private static final long validTime = System.currentTimeMillis() + 1000 * 60 * 60 * 24; // 1 day in millisecconds
+	private long validTime = 1000 * 60 * 60 * 24; // 1 day in millisecconds
 	private boolean expired;
 	private long expirationTime;
 	private long leftoverTime;
 	
 	public TimedPassword(long expirationTime) {
-		setExpirationTime(expirationTime);		
+		this.expirationTime = System.currentTimeMillis() + expirationTime * 1000;	
+		
+		System.out.println("Expiration time is: " + this.expirationTime);
 	}
 	
 	public TimedPassword() {
-		this.setExpirationTime(System.currentTimeMillis() * 1000);
+		this.expirationTime = validTime;
 	}
 	
 	
 	public boolean isExpired() {
-		leftoverTime = validTime - expirationTime;
+		leftoverTime = this.expirationTime - System.currentTimeMillis();
+		
+		System.out.println("Leftover time is: " + leftoverTime);
+		System.out.println("Valid time is: " + validTime);
+		System.out.println("Expiration time is: " + this.expirationTime);
+		System.out.println("Current time is: " + System.currentTimeMillis());
+		
+		
 		if (leftoverTime <= 0) {
 			expired = true;
 		}
@@ -26,22 +35,17 @@ public class TimedPassword extends Password{
 		return expired;
 	}
 	
-	public boolean resetPassword(String oldPass, String newPass) {
+	@Override
+	public boolean setWord(String oldPass, String newPass) {
 		boolean passwordReset = super.setWord(oldPass, newPass);
 		
 		if (passwordReset) {
-			this.setExpirationTime(System.currentTimeMillis() + validTime);
+			this.expirationTime = System.currentTimeMillis() + validTime;
 		}
 		return passwordReset;
 	}
 
-	public long getExpirationTime() {
-		return expirationTime;
-	}
 
-	public void setExpirationTime(long expirationTime) {
-		this.expirationTime = expirationTime;
-	}
 	
 
 }
