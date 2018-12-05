@@ -2,6 +2,8 @@ package ss.week3.pw;
 
 public class BasicChecker implements Checker {
 	
+	public static final String INITPASS = "admin";
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 

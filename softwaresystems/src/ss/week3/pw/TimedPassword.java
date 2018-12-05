@@ -7,19 +7,17 @@ public class TimedPassword extends Password{
 	private long leftoverTime;
 	
 	public TimedPassword(long expirationTime) {
-		setExpirationTime(expirationTime);
-		leftoverTime = validTime - expirationTime;
-		
-		
+		setExpirationTime(expirationTime);		
 	}
 	
 	public TimedPassword() {
-		this.setExpirationTime(System.currentTimeMillis());
+		this.setExpirationTime(System.currentTimeMillis() * 1000);
 	}
 	
 	
 	public boolean isExpired() {
-		if (leftoverTime == 0) {
+		leftoverTime = validTime - expirationTime;
+		if (leftoverTime <= 0) {
 			expired = true;
 		}
 		else {
