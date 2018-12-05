@@ -29,8 +29,10 @@ public class Board {
      */
     //@ ensures (\forall int i; 0 <= i & i < DIM * DIM; this.getField(i) == Mark.EMPTY); 
     public Board() {
-    	for (int i = 0; 0 <= i & i < DIM * DIM; i++) {
-    		fields[i] = Mark.EMPTY;
+    	this.fields = new Mark[DIM * DIM];
+    	
+    	for (int i = 0; i < DIM * DIM; i++) {
+    		this.fields[i] = Mark.EMPTY;
     	}
     }
 
@@ -43,7 +45,7 @@ public class Board {
       @*/
     public Board deepCopy() {
     	Board boardCopy = new Board();
-    	for (int i = 0; 0 <= i & i < DIM * DIM; i++) {
+    	for (int i = 0; i < DIM * DIM; i++) {
     		boardCopy.fields[i] = fields[i];
     	}
         return boardCopy;
@@ -180,6 +182,28 @@ public class Board {
      */
     /*@ pure */
     public boolean hasRow(Mark m) {
+        // Loop all rows
+        for (int row = 0; row < DIM; row++) {
+
+            // Have we won this row?
+            boolean hasRow = true;
+
+            // Loop all columns in this row
+            for (int column = 0; column < DIM; column++) {
+                Mark atIndex = fields[column];
+
+                // As soon as we don't have all spots in this row, stop
+                if (atIndex != m) {
+                    hasRow = false;
+                    break; // Stop column-loop here
+                }
+            }
+
+            // If we have one 1 row, we don't have to check the others
+            if (hasRow) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -193,8 +217,28 @@ public class Board {
      */
     /*@ pure */
     public boolean hasColumn(Mark m) {
-    	// TODO: implement, see exercise P-4.18
-        return false;
+    	// Loop all columns
+        for (int col = 0; col < DIM; col++) {
+
+            // Have we won this column?
+            boolean hasColumn = true;
+
+            // Loop all row in this column
+            for (int row = 0; row < DIM; row++) {
+                Mark atIndex = fields[row];
+
+                // As soon as we don't have all spots in this row, stop
+                if (atIndex != m) {
+                    hasColumn = false;
+                    break; // Stop column-loop here
+                }
+            }
+
+            // If we have one 1 row, we don't have to check the others
+            if (hasColumn) {
+                return true;
+            }
+        }        return false;
     }
 
     /**
@@ -207,8 +251,30 @@ public class Board {
      */
     /*@ pure */
     public boolean hasDiagonal(Mark m) {
-    	// TODO: implement, see exercise P-4.18
-        return false;
+    	boolean hasDiagonal = true;
+    	
+    	for (int i = 0; i < DIM; i++) {
+    		Mark atDiagonalIndex = fields[i * DIM  + i];
+    		
+    		if (atDiagonalIndex != m) {
+        		hasDiagonal = false;
+        		break;
+    		}
+    	}
+    	
+    	for (int j = 0; j < (DIM - 1); j++) {
+    		Mark atInverseDiagonalIndex = fields[j * (DIM - 1) + j];
+    		
+    		if (atInverseDiagonalIndex != m) {
+    			hasDiagonal = false;
+    			break;
+    		}
+     	}
+    	
+    	if (hasDiagonal) {
+            return true;
+        }
+    	return false;
     }
 
     /**
@@ -223,8 +289,7 @@ public class Board {
     //@ ensures \result == this.hasRow(m) || this.hasColumn(m) | this.hasDiagonal(m);
     /*@ pure */
     public boolean isWinner(Mark m) {
-    	// TODO: implement, see exercise P-4.18
-        return false;
+    	return (hasRow(m) == true || hasColumn(m) == true || hasDiagonal(m) == true);
     }
 
     /**
@@ -236,8 +301,7 @@ public class Board {
     //@ ensures \result == isWinner(Mark.XX) | \result == isWinner(Mark.OO);
     /*@pure*/
     public boolean hasWinner() {
-    	// TODO: implement, see exercise P-4.18
-        return false;
+        return (isWinner(Mark.XX) || isWinner(Mark.OO));
     }
 
     /**
@@ -271,7 +335,9 @@ public class Board {
     /*@ ensures (\forall int i; 0 <= i & i < DIM * DIM;
                                 this.getField(i) == Mark.EMPTY); @*/
     public void reset() {
-    	// TODO: implement, see exercise P-4.18
+    	for (int i = 0; 0 <= i & i < DIM * DIM; i++) {
+    		fields[i] = Mark.EMPTY;
+    	}
     }
 
     /**
@@ -285,7 +351,7 @@ public class Board {
     //@ requires this.isField(i);
     //@ ensures this.getField(i) == m;
     public void setField(int i, Mark m) {
-    	// TODO: implement, see exercise P-4.18
+    	fields[i] = m;
     }
 
     /**
@@ -302,6 +368,5 @@ public class Board {
     //@ requires this.isField(row,col);
     //@ ensures this.getField(row,col) == m;
     public void setField(int row, int col, Mark m) {
-    	// TODO: implement, see exercise P-4.18
-    }
+    	fields[index(row, col)] = m;    }
 }
