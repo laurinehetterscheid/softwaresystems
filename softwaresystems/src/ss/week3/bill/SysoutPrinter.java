@@ -2,18 +2,17 @@ package ss.week3.bill;
 
 public class SysoutPrinter implements Printer{
 	
-	public static void main(String[] args) {
+	public static void main(String[] var0) {
+		SysoutPrinter p = new SysoutPrinter();
+        p.printLine("Text1", 1.0);
+        p.printLine("Other text", -12.1212);
+        p.printLine("Something", .2);
 	}
 
-	@Override
-	public String format(String text, double price) {
-		return String.format(text, price) + "/n";
-	}
 
 	@Override
 	public void printLine(String text, double price) {
-		System.out.print(text);
-		System.out.printf("%2d", price);		
+		System.out.print(format(text, price));	
 	}
 
 }
