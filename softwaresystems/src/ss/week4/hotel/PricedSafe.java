@@ -1,20 +1,22 @@
 package ss.week4.hotel;
 
 public class PricedSafe extends ss.week2.hotel.Safe implements ss.week3.bill.Bill.Item {
+	private double safePrice;
 	
 	public PricedSafe(double price) {
+		super();
+		safePrice = price;
 		
 	}
 
 	@Override
 	public double getAmount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return safePrice;
 	}
 	
+	@Override
 	public String toString() {
-		// TODO
-		return "someString";
+		return ("kluis prijs is: " + safePrice);
 	}
 
 }

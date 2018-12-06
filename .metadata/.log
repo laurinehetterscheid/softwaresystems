@@ -8082,3 +8082,13 @@ New file: /Applications/Eclipse.app/Contents/Eclipse/configuration/org.eclipse.o
 	at org.eclipse.ui.internal.decorators.DecorationScheduler$1.ensureResultCached(DecorationScheduler.java:350)
 	at org.eclipse.ui.internal.decorators.DecorationScheduler$1.run(DecorationScheduler.java:313)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SESSION 2018-12-06 09:05:59.221 -----------------------------------------------
+eclipse.buildId=4.9.0.I20180906-0745
+java.version=1.8.0_191
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_GB
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/laurine.hetterscheid/.eclipse_keyring
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/laurine.hetterscheid/.eclipse_keyring
+
+!ENTRY org.eclipse.core.resources 2 10035 2018-12-06 09:10:38.587
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.

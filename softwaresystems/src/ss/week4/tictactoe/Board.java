@@ -154,13 +154,13 @@ public class Board {
     //@ ensures \result == (\forall int i; i <= 0 & i < DIM * DIM; this.getField(i) != Mark.EMPTY);
     /*@pure*/
     public boolean isFull() {
-    	for (int i = 0; i <= (DIM * DIM - 1); i++) {
+    	for (int i = 0; i < (DIM * DIM); i++) {
     		
     		if (this.isEmptyField(i)) {
     			return false;
     		}
     	}
-    	return false;
+    	return true;
     }
 
     /**
@@ -192,8 +192,8 @@ public class Board {
             boolean hasRow = true;
 
             // Loop all columns in this row
-            for (int column = 0; column < DIM; column++) {
-                Mark atIndex = fields[column];
+            for (int col = 0; col < DIM; col++) {
+                Mark atIndex = fields[index(row, col)];
 
                 // As soon as we don't have all spots in this row, stop
                 if (atIndex != m) {
@@ -228,7 +228,7 @@ public class Board {
 
             // Loop all row in this column
             for (int row = 0; row < DIM; row++) {
-                Mark atIndex = fields[row];
+                Mark atIndex = fields[index(row, col)];
 
                 // As soon as we don't have all spots in this row, stop
                 if (atIndex != m) {
@@ -241,7 +241,8 @@ public class Board {
             if (hasColumn) {
                 return true;
             }
-        }        return false;
+        }   
+        return false;
     }
 
     /**
@@ -256,8 +257,12 @@ public class Board {
     public boolean hasDiagonal(Mark m) {
     	boolean hasDiagonal = true;
     	
+    	// 0,0  0,2
+    	// 1,1  1,1
+    	// 2,2  2,0
+    	
     	for (int i = 0; i < DIM; i++) {
-    		Mark atDiagonalIndex = fields[i * DIM  + i];
+    		Mark atDiagonalIndex = fields[index(i, i)];
     		
     		if (atDiagonalIndex != m) {
         		hasDiagonal = false;
@@ -265,19 +270,24 @@ public class Board {
     		}
     	}
     	
-    	for (int j = 0; j < (DIM - 1); j++) {
-    		Mark atInverseDiagonalIndex = fields[j * (DIM - 1) + j];
+    	if (hasDiagonal) {
+            return true;
+    	}
+    	else {
+    		hasDiagonal = true;
+    	}
+    	
+    	
+    	for (int j = 0; j < DIM; j++) {
+    		Mark atInverseDiagonalIndex = fields[index(j, DIM - j - 1)];
     		
     		if (atInverseDiagonalIndex != m) {
     			hasDiagonal = false;
     			break;
     		}
      	}
-    	
-    	if (hasDiagonal) {
-            return true;
-        }
-    	return false;
+    	return hasDiagonal;
+      
     }
 
     /**

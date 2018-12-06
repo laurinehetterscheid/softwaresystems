@@ -2,19 +2,26 @@ package ss.week4.hotel;
 
 public class PricedRoom extends ss.week2.hotel.Room implements ss.week3.bill.Bill.Item {
 	
+	private double safePrice;
+	private double roomPrice;
+	private double nightPrice;
+	
+
 	public PricedRoom (int roomNumber, double roomPrice, double safePrice) {
-		new PricedSafe(safePrice);
+		super(roomNumber, new PricedSafe(safePrice));
+		this.safePrice = safePrice;
+		this.roomPrice = roomPrice;
+
 	}
 
 	@Override
 	public double getAmount() {
-		// TODO Auto-generated method stub
-		return 0;
+		this.nightPrice = roomPrice + safePrice;
+		return nightPrice;
 	}
 	
 	public String toString() {
-		// TODO
-		return "someString";
+		return ("kamer prijs is: " + roomPrice);
 	}
 
 }
