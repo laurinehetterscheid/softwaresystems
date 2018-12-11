@@ -1,6 +1,6 @@
 package ss.week4.hotel;
 
-public class PricedRoom extends ss.week2.hotel.Room implements ss.week3.bill.Bill.Item {
+public class PricedRoom extends ss.week2.hotel.Room {
 	
 	private double safePrice;
 	private double roomPrice;

@@ -4,7 +4,7 @@ package ss.week2.hotel;
  * Hotel room with number and possibly a guest.
  * @author Arend Rensink, Laurine Hetterscheid
  */
-public class Room {
+public class Room implements ss.week3.bill.Bill.Item{
     // ------------------ Instance variables ----------------
     private int number;
     private Guest guest;
@@ -67,4 +67,9 @@ public class Room {
     public void setGuest(Guest g) {
     	this.guest = g;
     }
+
+	@Override
+	public double getAmount() {
+		return 0;
+	}
 }

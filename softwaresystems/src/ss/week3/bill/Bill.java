@@ -1,7 +1,7 @@
 package ss.week3.bill;
 
 public class Bill {
-	public StringPrinter printer;
+	public Printer printer;
 	private double billTotal = 0;
 	
 	
@@ -15,7 +15,7 @@ public class Bill {
 	/*
 	 * Constructs a Bill sending the output to a given Printer.
 	 */
-	public Bill(StringPrinter printer) {
+	public Bill(Printer printer) {
 		this.printer = printer;
 		billTotal = 0;
 	}

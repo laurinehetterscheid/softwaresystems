@@ -5,7 +5,7 @@ import ss.week3.bill.*;
 
 public class Hotel {
 	private Room room1;
-	private PricedRoom room2;
+	private Room room2;
 	private Guest guest1;
 	private Guest guest2;
 	private Password hotelPass;
@@ -103,12 +103,20 @@ public class Hotel {
 	}
 	
 	
-	public PricedRoom getBill(Guest guestName, int numberOfNights, Printer printer) {
-		
-		if(guestName.getRoom() == room2 && room2.getGuest().getName().equals(guestName)) {
-			return printer.printLine(getName(), );
+	public Bill getBill(String guestName, int numberOfNights, Printer printer) {
+		Room kamer = getRoom(guestName);
+
+		if(kamer instanceof PricedRoom && room2.getGuest().getName().equals(guestName)) {
+			Bill rekening = new Bill(printer);
+			for (int n = 0; n < numberOfNights; n++) {
+				rekening.addItem(kamer);
+			}
+			rekening.close();
+			return rekening;
 		}
-		return null;
+		else {
+			return null;
+		}
 	}
 	
 	
