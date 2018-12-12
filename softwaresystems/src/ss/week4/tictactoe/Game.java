@@ -2,6 +2,8 @@ package ss.week4.tictactoe;
 
 import java.util.Scanner;
 
+//import ss.week6.challenge.ttt.Game;
+
 /**
  * Class for maintaining the Tic Tac Toe game.
  * Lab assignment Module 2
@@ -107,7 +109,14 @@ public class Game {
      * After each move, the changed game situation is printed.
      */
     private void play() {
-        // TODO: implement, see P-4.20
+    	int move = 0;
+    	while (!board.gameOver()) {
+    		this.update();
+    		this.board.setField(this.players[move].determineMove(this.board), this.players[move].getMark());
+    		move = (move+1) %2;
+    	}
+     
+     
     }
 
     /**

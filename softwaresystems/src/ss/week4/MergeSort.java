@@ -1,11 +1,22 @@
 package ss.week4;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class MergeSort {
-    public static <E extends Comparable<E>>
-           void mergesort(List<E> list) {
-    	// TODO: implement, see exercise P-4.16
+    
+	public static <E extends Comparable<E>> void mergesort(List<E> list) {
+		
+		List<E> mergeList = new ArrayList<E>();
+		
+		for (E x: list) {
+			mergeList.add(x);
+		}
+    	
+		Comparator<? super E> c = null;
+		mergeList.sort(c);
+		
+		list.clear(); 
+		list.addAll(mergeList);
     }
+	
 }

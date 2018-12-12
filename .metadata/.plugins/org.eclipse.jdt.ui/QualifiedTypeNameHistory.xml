@@ -9,4 +9,8 @@
 <fullyQualifiedTypeName name="ss.week3.math.Constant"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="ss.week3.bill.Bill.Item"/>
+<fullyQualifiedTypeName name="java.util.Collections"/>
+<fullyQualifiedTypeName name="java.lang.Comparable"/>
+<fullyQualifiedTypeName name="ss.week6.challenge.ttt.Game"/>
+<fullyQualifiedTypeName name="java.util.Map.Entry"/>
 </qualifiedTypeNameHistroy>
