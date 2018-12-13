@@ -65,19 +65,60 @@ public class MapUtil {
     
     
     public static <K, V> Map<V, Set<K>> inverse(Map<K, V> map) {
-        // TODO: implement, see exercise P-5.3
-        return null;
-	}
+    	
+    	Map<V, Set<K>> inv = new HashMap<>();
+	    
+    	inv.put((V) map.values(), map.keySet());
+
+	    return inv;
+	
+    }
+    
+    
 	public static <K, V> Map<V, K> inverseBijection(Map<K, V> map) {
-        // TODO: implement, see exercise P-5.3
-        return null;
+
+	    Map<V, K> invB = new HashMap<V, K>();
+
+	    for (Map.Entry<K, V> entry : map.entrySet())
+	        invB.put(entry.getValue(), entry.getKey());
+
+	    return invB;
+	
 	}
+	
+	
 	public static <K, V, W> boolean compatible(Map<K, V> f, Map<V, W> g) {
-        // TODO: implement, see exercise P-5.4
-        return false;
+		
+		// are all value in the value set of f in the key set of g??        
+		for (Map.Entry<K, V> entry1 : f.entrySet()) {
+			
+			for(Map.Entry<V, W> entry2 : g.entrySet()) {
+								
+				if (entry1.getValue() != entry2.getKey()) {
+					//if (!f.values().contains(entry2.getKey())) {
+					return false;
+				}
+			}
+		}
+		return true;
+	
 	}
+	
+	
 	public static <K, V, W> Map<K, W> compose(Map<K, V> f, Map<V, W> g) {
-        // TODO: implement, see exercise P-5.5
-        return null;
+		
+		Map<K, W> composedMap = new HashMap<K, W>();
+		
+		if (compatible(f, g)) {
+			
+			for (Map.Entry<K, V> entry1 : f.entrySet()) {
+				
+				for(Map.Entry<V, W> entry2 : g.entrySet()) {
+					
+					composedMap.put(entry1.getKey(), entry2.getValue());
+				}
+			}
+		}
+		return composedMap;
 	}
 }
