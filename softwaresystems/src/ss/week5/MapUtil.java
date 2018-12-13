@@ -66,12 +66,29 @@ public class MapUtil {
     
     public static <K, V> Map<V, Set<K>> inverse(Map<K, V> map) {
     	
-    	Map<V, Set<K>> inv = new HashMap<>();
-	    
-    	inv.put((V) map.values(), map.keySet());
-
-	    return inv;
-	
+    	// maak een nieuwe Map met gewenst format
+    	final Map<V, Set<K>> inv = new HashMap<V, Set<K>>();
+    	
+    	// maak een nieuwe Set van de originele (enkel unieke) values
+    	final Set<V> uniqueValues = new HashSet<>(map.values());
+    	
+    	// loop over alle uniqueValues --> zijn nieuwe keys
+    	for(final V valueAsKey : uniqueValues) {
+    		
+    		// maak een nieuwe Set met originele keys die gaan fungeren als values
+    		final Set<K> keysAsValue = new HashSet<>();
+    		
+    		// stop alle valueAsKey (oude values) in een nieuwe Key Set
+    		for(final K key : map.keySet()) {
+    			if(map.get(key) == valueAsKey) {
+    				keysAsValue.add(key);
+    			}
+    		}
+    		
+    		// stop de nieuwe keys en values (Set) in de inverse map
+    		inv.put(valueAsKey, keysAsValue);
+    	}
+    	return inv;
     }
     
     
@@ -80,7 +97,7 @@ public class MapUtil {
 	    Map<V, K> invB = new HashMap<V, K>();
 
 	    for (Map.Entry<K, V> entry : map.entrySet())
-	        invB.put(entry.getValue(), entry.getKey());
+	    	invB.put(entry.getValue(), entry.getKey());
 
 	    return invB;
 	
@@ -89,19 +106,17 @@ public class MapUtil {
 	
 	public static <K, V, W> boolean compatible(Map<K, V> f, Map<V, W> g) {
 		
-		// are all value in the value set of f in the key set of g??        
+		// are all values in the value set of f in the key set of g??        
 		for (Map.Entry<K, V> entry1 : f.entrySet()) {
 			
 			for(Map.Entry<V, W> entry2 : g.entrySet()) {
-								
-				if (entry1.getValue() != entry2.getKey()) {
-					//if (!f.values().contains(entry2.getKey())) {
+					
+				if (!g.containsKey(entry1.getValue())) {
 					return false;
 				}
 			}
 		}
 		return true;
-	
 	}
 	
 	
