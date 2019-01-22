@@ -1,6 +1,24 @@
 package ss.week6.cards;
 
-public class Card
+import java.io.BufferedReader;
+import java.io.DataInput;
+import java.io.DataOutput;
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+
+import org.omg.CORBA.DataOutputStream;
+
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+
+public class Card implements Serializable 
 {
 
 	// ---- constants -----------------------------------
@@ -22,9 +40,32 @@ public class Card
 	private static final char[] RANK_CHARACTERS = "23456789TJQKA".toCharArray();
 	private static final char[] SUIT_CHARACTERS = {'C', 'D', 'H', 'S'};
 	private static final String[] RANK_STRINGS = {"2", "3", "4", "5", "6", "7",
-	    "8", "9", "10", "jack", "queen", "king", "ace"};
+			"8", "9", "10", "jack", "queen", "king", "ace"};
 	private static final String[] SUIT_STRINGS = {"Clubs", "Diamonds",
-	    "Hearts", "Spades"};
+			"Hearts", "Spades"};
+	
+	// more convenient lists
+	private static List<String> suits = Arrays.asList(SUIT_STRINGS);
+	private static List<String> ranks = Arrays.asList(RANK_STRINGS);
+
+
+	// ---- main method -----------------------------------
+
+	public static void main(String[] args) {
+		try {
+			PrintWriter printWriter = new PrintWriter("cardfile.txt");
+			Card card = new Card(SUIT_CHARACTERS[0], RANK_CHARACTERS[0]);
+
+			printWriter.print(card);
+			printWriter.close();
+			
+		}
+		catch (FileNotFoundException exception) {
+			exception.printStackTrace();
+		}
+	}
+
+
 
 	// ---- class methods -------------------------------------
 
@@ -37,8 +78,8 @@ public class Card
 	private static char rankString2Char(String rank) {
 		int i;
 		for (i = 0; i < 13 && !(RANK_STRINGS[i].equals(rank)); i++) {
-            ;
-        }
+			;
+		}
 		return (i == 13) ? '?' : RANK_CHARACTERS[i];
 	}
 
@@ -51,8 +92,8 @@ public class Card
 	private static char suitString2Char(String suit) {
 		int i;
 		for (i = 0; i < 4 && !(SUIT_STRINGS[i].equals(suit)); i++) {
-            ;
-        }
+			;
+		}
 		return (i == 4) ? '?' : SUIT_CHARACTERS[i];
 	}
 
@@ -72,7 +113,7 @@ public class Card
 	 * @return <tt>true</tt> if 
 	 * <tt>k</tt> in <tt>'2'..'9' | TEN | JACK | QUEEN | KING | ACE</tt>
 	 */
-    /*@pure*/
+	/*@pure*/
 	public static boolean isValidRank(char r) {
 		return ('2' <= r && r <= '9') || r == TEN || r == JACK || r == QUEEN
 				|| r == KING || r == ACE;
@@ -98,9 +139,9 @@ public class Card
 		return result;
 	}
 
-    /*@
+	/*@
        requires isValidRank(r1) && isValidRank(r2);
-     */
+	 */
 	/**
 	 * Tests if one rank is less then the other following the order
 	 * '2' < '3' < ... < TEN < JACK < QUEEN < KING < ACE.
@@ -108,14 +149,14 @@ public class Card
 	public static boolean rankLessThan(char r1, char r2) {
 		int i;
 		for (i = 0; RANK_CHARACTERS[i] != r1 && RANK_CHARACTERS[i] != r2; i++) {
-            ;
-        }
+			;
+		}
 		return RANK_CHARACTERS[i] == r2 ? false : RANK_CHARACTERS[i] == r1;
 	}
 
 	/*@
        requires isValidRank(r1) && isValidRank(r2);
-     */
+	 */
 	/**
 	 * Tests if one rank directly follows the other accroding to
 	 * '2' < '3' < ... < TEN < JACK < QUEEN < KING < ACE.
@@ -138,6 +179,115 @@ public class Card
 		return result;
 	}
 	
+	
+	
+	// ---- TEXT CHANNELS ------------------------------
+
+	/*
+	 * It should have a PrintWriter as parameter, and the result of
+	 * the method should be that the object on which the method is called sends a description of itself (obtained
+	 * by the use of toString) to the PrintWriter.
+	 */
+	public void write(PrintWriter pw) {
+		pw.write(this.toString() + "\n");
+		pw.flush();
+	}
+	
+	
+	
+	
+	/*
+	 * Deze mag veeeeel kleiner door meerdere kleinere methodes te maken.
+	 */
+	public static Card read(BufferedReader in) {
+		
+				
+		Scanner inputScanner = new Scanner(in);
+		
+		String readInput = inputScanner.next(); // inputScanner.nextLine();??
+		inputScanner.close();
+		
+		if (readInput == null) {
+			return null;
+		}
+		
+		System.out.println("read input line '" + readInput + "'");
+				
+		char suit = 0;
+		char rank = 0;
+		
+		String[] splitArray = readInput.split(" ");
+		
+		
+		int suitIndex = suits.indexOf(splitArray[0]);			
+		if (suitIndex < 0) {
+			return null;
+		}
+		else { 
+			suit = SUIT_CHARACTERS[suitIndex];
+		}
+		
+		
+		int rankIndex = ranks.indexOf(splitArray[1]);
+		if (rankIndex <0) {
+			return null;
+		}
+		else {
+			rank = RANK_CHARACTERS[rankIndex];
+		}
+		
+		return new Card(suit, rank);
+	}
+	
+	
+	
+	// ---- DATA CHANNELS --------------------------
+	
+	
+	public void write(DataOutputStream out) throws IOException {
+		
+		//DataOutputStream dataOut = new DataOutputStream(new FileOutputStream("cardfiledata.txt"));
+
+		out.write_char(this.getSuit());
+		out.write_char(this.getRank());
+	}
+	
+	
+	public static Card read(DataInput in) throws IOException {
+		
+		char suit = in.readChar();
+		char rank = in.readChar();
+
+		if(isValidRank(rank) && isValidSuit(suit)) {
+			return new Card(suit, rank);
+		}
+
+		return null;
+		
+	}
+	
+	
+	
+	
+	// ---- OBJECT CHANNELS ------------------------------
+	
+
+	public void write(ObjectOutput out) throws IOException {
+		out.writeObject(this);
+		
+	}
+	
+	
+	
+	public static Card read(ObjectInput in) throws IOException, ClassNotFoundException {
+		return (Card) in.readObject();
+		
+	}
+	
+	
+		
+	
+
 	// ---- instance variables -----------------------------------
 
 	/*@
@@ -184,9 +334,9 @@ public class Card
 		return suit;
 	}
 
-    /*@
+	/*@
        ensures isValidRank(\result);
-    */
+	 */
 	/** 
 	 * Returns the rank of this card. 
 	 * @return rank of this card.
@@ -197,41 +347,41 @@ public class Card
 
 	/** Returns a String description of this card. */
 	@Override
-    public String toString() {
+	public String toString() {
 		String res;
 
 		switch (getSuit()) {
-    		case CLUBS:
-    		    res = "Clubs";
-    		    break;
-    		case DIAMONDS:
-    		    res = "Diamonds";
-    		    break;
-    		case HEARTS:
-    		    res = "Hearts";
-    		    break;
-    		default:
-    		    res = "Spades";
+		case CLUBS:
+			res = "Clubs";
+			break;
+		case DIAMONDS:
+			res = "Diamonds";
+			break;
+		case HEARTS:
+			res = "Hearts";
+			break;
+		default:
+			res = "Spades";
 		}
 		res += " ";
 		switch (getRank()) {
-    		case TEN:
-    		    res += "10";
-    		    break;
-    		case JACK:
-    		    res += "jack";
-    		    break;
-    		case QUEEN:
-    		    res += "queen";
-    		    break;
-    		case KING:
-    		    res += "king";
-    		    break;
-    		case ACE:
-    		    res += "ace";
-    		    break;
-    		default:
-    		    res += getRank();
+		case TEN:
+			res += "10";
+			break;
+		case JACK:
+			res += "jack";
+			break;
+		case QUEEN:
+			res += "queen";
+			break;
+		case KING:
+			res += "king";
+			break;
+		case ACE:
+			res += "ace";
+			break;
+		default:
+			res += getRank();
 		}
 
 		return res;
@@ -244,7 +394,7 @@ public class Card
 	 *         are the same as of this Card.
 	 */
 	@Override
-    public boolean equals(Object obj) {
+	public boolean equals(Object obj) {
 		if (!(obj instanceof Card)) {
 			return false;
 		}
@@ -257,7 +407,7 @@ public class Card
 	 * Overwrites the hashcode from Object.
 	 */
 	@Override
-    public int hashCode() {
+	public int hashCode() {
 		return 100 * rank + suit;
 	}
 
@@ -274,9 +424,9 @@ public class Card
 		return suitLessThan(this.getSuit(), card.getSuit());
 	}
 
-    /*@
+	/*@
        requires card != null;
-     */
+	 */
 	/**
 	 * Tests if this Card is less in rank that another Card.
 	 * @see #rankLessThan(char, char)
@@ -287,9 +437,9 @@ public class Card
 		return rankLessThan(this.getRank(), card.getRank());
 	}
 
-    /*@
+	/*@
        requires card != null;
-     */
+	 */
 	/**
 	 * Tests if this Card is directly followed in rank by another Card.
 	 * Does not consider suit.
